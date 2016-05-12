@@ -24,11 +24,6 @@ FactoryGirl.define do
     active true
   end
 
-
-
-
-
-
   # book_authors
   factory :book_author do
     association :book

@@ -12,12 +12,9 @@ class Book < ActiveRecord::Base
   # Date validations using validates_timeliness gem
   # see https://github.com/adzap/validates_timeliness for documentation
   validates_date :proposal_date, on_or_before: -> { Date.current }
-  validates_date :contract_date, after: :proposal_date, on_or_before: -> { Date.current }, allow_blank: true
-  validates_date :published_date, after: :contract_date, on_or_before: -> { Date.current }, allow_blank: true  
+  validates_date :contract_date, after: :proposal_date, on_or_before: -> { Date.current }, allow_nil: true
+  validates_date :published_date, after: :contract_date, on_or_before: -> { Date.current }, allow_nil: true  
 
-  validates_date :proposal_date, :on_or_before => lambda { Date.current }
-  validates_date :contract_date, :on_or_before => lambda { Date.current }, :after => :proposal_date, :after_message => "Must be after proposal date" 
-  validates_date :published_date, :on_or_before => lambda { Date.current }, :after => :contract_date, :after_message => "Must be after contract date", :allow_blank => true
 
   # Custom validation
   validate :category_is_active_in_system
