@@ -73,65 +73,77 @@ class BookTest < ActiveSupport::TestCase
     #   - for_category
     
     should "have all the books listed alphabetically by title" do
-      # test code goes here...
+      assert_equal ["Agile Testing", "Rails 3 Tutorial", "Ruby for Masters", "The RSpec Book", "The Well-Grounded Rubyist"], Book.by_title.map{|b| b.title}
     end
     
     should "have all the books listed alphabetically by category, then by title" do
-      # test code goes here...
+      assert_equal ["Rails 3 Tutorial", "Ruby for Masters", "The Well-Grounded Rubyist", "Agile Testing", "The RSpec Book"], Book.by_category.map{|b| b.title}
     end
     
     should "have all the published books" do
-      # test code goes here...
+      assert_equal ["Rails 3 Tutorial", "The RSpec Book", "The Well-Grounded Rubyist"], Book.published.by_title.map{|b| b.title}
     end
     
     should "have all the books under contract" do
-      # test code goes here...
+      assert_equal ["Ruby for Masters"], Book.under_contract.by_title.map{|b| b.title}
     end
     
     should "have all the books that are only at proposal stage" do
-      # test code goes here...
+      assert_equal ["Agile Testing"], Book.proposed.by_title.map{|b| b.title}
     end
     
     should "have all the books for a particular category" do
-      # test code goes here...
+      assert_equal ["Rails 3 Tutorial"], Book.for_category(@rails.id).by_title.map{|b| b.title}
+      assert_equal ["Ruby for Masters", "The Well-Grounded Rubyist"], Book.for_category(@ruby.id).by_title.map{|b| b.title}
     end
     
     # TESTING CONTRACT AND PUBLISHED DATES
     # proposal_date was validated earlier with a matcher
         
     should "allow for a contract date in the past after the proposal date" do
-      # take advantage of the fact that the default proposal date is 1 year ago...
-      # test code goes here...
+      big_ruby_book = FactoryGirl.build(:book, contract_date: 50.weeks.ago, category: @ruby, title: "The Big Book of Ruby")
+      assert big_ruby_book.valid?
     end
     
     should "allow for contract and published dates to be nil" do
       # make pub date also nil otherwise it will fail b/c default pub date is 3 weeks ago, which is before a nil contract date      big_ruby_book = FactoryGirl.build(:book, :contract_date => nil, :published_date => nil, :category => @ruby, :title => "The Big Book of Ruby")
       # test code goes here...
+      big_ruby_book = FactoryGirl.build(:book, contract_date: nil, published_date: nil, category: @ruby, title: "The Big Book of Ruby")
+      assert big_ruby_book.valid?
     end
     
     should "not allow for a contract date in the past before the proposal date" do
       # test code goes here...
+      big_ruby_book = FactoryGirl.build(:book, contract_date: 14.months.ago, category: @ruby, title: "The Big Book of Ruby")
+      deny big_ruby_book.valid?
     end
     
     should "not allow for a contract date in the future" do
       # test code goes here...
+      big_ruby_book = FactoryGirl.build(:book, contract_date: 1.month.from_now, category: @ruby, title: "The Big Book of Ruby")
+      deny big_ruby_book.valid? 
     end
     
     should "allow for a published date in the past after the contract date" do
       # take advantage of the fact that the default contract date is 10 months ago...
       # test code goes here...
+      test_book = FactoryGirl.build(:book, published_date: 9.months.ago, title: "Test Rails Book" , category: @rails)
+      assert test_book.valid?
     end
     
     should "allow for just the published date to be nil" do
-      # test code goes here...
+       test_book = FactoryGirl.build(:book, published_date: nil , title: "Test Rails Book" , category: @rails)
+      assert test_book.valid?
     end
     
     should "not allow for a published date in the past before the contract date" do
-      # test code goes here...
+      test_book = FactoryGirl.build(:book, published_date: 11.months.ago, title: "Test Rails Book" , category: @rails)
+      deny test_book.valid?
     end
     
     should "not allow for a published date in the future" do
-      # test code goes here...
+       test_book = FactoryGirl.build(:book, published_date: 1.day.from_now, title: "Test Rails Book" , category: @rails)
+       deny test_book.valid?
     end
     
     

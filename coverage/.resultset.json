@@ -124,9 +124,9 @@
         null,
         null,
         null,
-        83,
-        65,
-        49,
+        91,
+        71,
+        53,
         null,
         null,
         null,
@@ -134,20 +134,20 @@
         null,
         null,
         null,
-        1,
-        1,
+        7,
+        2,
+        null,
+        2,
+        2,
+        2,
+        null,
+        3,
+        null,
         null,
         1,
         1,
-        1,
-        null,
-        1,
-        null,
-        null,
-        1,
-        1,
-        329,
-        89,
+        361,
+        97,
         9,
         null,
         null,
@@ -163,7 +163,7 @@
         null,
         null,
         1,
-        90,
+        98,
         null
       ],
       "/Users/allysorge/Desktop/272Labs/BookManager_2/app/models/book_author.rb": [
@@ -192,6 +192,6 @@
         null
       ]
     },
-    "timestamp": 1463038556
+    "timestamp": 1463039963
   }
 }
