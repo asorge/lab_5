@@ -4,6 +4,9 @@ class BookTest < ActiveSupport::TestCase
   # Start by using Shoulda's ActiveRecord matchers
   #
   # TODO: Relationship macros
+  should belong_to(:category)
+  should have_many(:book_authors)
+  should have_many(:authors).through(:book_authors)
 
 
   # TODO: Validation macros
