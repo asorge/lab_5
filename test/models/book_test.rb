@@ -150,7 +150,11 @@ class BookTest < ActiveSupport::TestCase
     # TESTING CUSTOM VALIDATIONS
     # test the custom validation 'category_is_active_in_system'
     should "identify an inactive category as invalid" do
-      # test code goes here...
+      python = FactoryGirl.create(:category, name: "Python", active: false)
+      python_book = FactoryGirl.build(:book, category: python, title: "Python!")
+      deny python_book.valid?
+
+      python.destroy 
     end
   end
 
